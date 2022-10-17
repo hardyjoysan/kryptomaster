@@ -1,6 +1,10 @@
+import React, { useContext } from "react";
+
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+
+import { TransactionContext } from "../context/TransactionContext";
 
 import Loader from "./Loader";
 const commonStyles =
@@ -18,8 +22,10 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-  const connectWallet = () => {};
+  const { connectWallet, currentAccount } = useContext(TransactionContext);
+
   const handleSubmit = (e) => {};
+
   return (
     <div className="flex w-full justify-center items-center">
       <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -32,13 +38,18 @@ const Welcome = () => {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             Krypto.
           </p>
-          <button
-            type="button"
-            className="flex flex-row justify-center items-center my-5 bg-blue-700 p-3 rounded-full cursor-pointer hover:bg-blue-900"
-            onClick={connectWallet}
-          >
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              type="button"
+              className="flex flex-row justify-center items-center my-5 bg-blue-700 p-3 rounded-full cursor-pointer hover:bg-blue-900"
+              onClick={connectWallet}
+            >
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
+
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
             <div className={commonStyles}>Security</div>
